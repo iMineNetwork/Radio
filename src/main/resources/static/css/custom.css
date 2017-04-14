@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
+    background-color: #FAFAFA;
+
+    font-family: Helvetica, Trebuchet MS, Arial, sans-serif;
+}
+
+form input {
+    width: 70%;
+}
+
+div {
+    flex: 33%;
+}
+
+.trackList {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+
+    background-color: hotpink;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.trackListHeaderSection {
+    display: flex;
+    flex: auto;
+    flex-direction: row;
+
+    border-color: rgba(0, 0, 0, 0.79);
+    border-bottom: 3px solid;
+
+    padding-top: 1em;
+}
+
+.trackListUploadSection {
+    display: flex;
+    flex: auto;
+    flex-direction: row;
+
+    border-color: rgba(0, 0, 0, 0.79);
+    border-bottom: 2px solid;
+
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+.trackListContainer {
+    display: inherit;
+
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.trackListUploadContainer input {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.trackListContent {
+    border-color: rgba(0, 0, 0, 0.79);
+
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.trackListContent div {
+    display: flex;
+    flex-direction: row;
+}
+
+.track {
+    border-color: rgba(0, 0, 0, 0.79);
+    border-bottom: 1px solid;
+
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+.trackArtist {
+    padding-left: 0.5em;
+}

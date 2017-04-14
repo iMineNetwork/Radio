@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>iMine Radio</title>
+    <meta name="viewport" content="width=device-width">
+    <!--MaterializeCSS-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">-->
+    <link rel="stylesheet" href="/css/custom.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>-->
+</head>
+<body>
+
+<div class="trackList">
+    <div class="trackListHeaderSection">
+        <div class="trackListContainer">
+            <div>
+                <b>Artist</b>
+            </div>
+            <div>
+                <b>Name</b>
+            </div>
+            <div>
+                <b>Actions</b>
+            </div>
+        </div>
+    </div>
+    <form method="POST" class="trackListUploadSection">
+        <div class="trackListContainer">
+            <div>
+                <input name="name"/>
+            </div>
+            <div>
+                <input name="artist"/>
+            </div>
+            <div>
+                <button formaction="/radio">Upload</button>
+            </div>
+        </div>
+    </form>
+    <div class="trackListContent">
+        <div class="track" th:each="track : ${tracks}">
+            <div class="trackArtist">
+                <a th:text="${track.artist}"/>
+            </div>
+            <div class="trackName">
+                <a th:text="${track.name}"/>
+            </div>
+            <div class="trackActions">
+                <b>WIP</b>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
