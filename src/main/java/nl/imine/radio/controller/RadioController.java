@@ -6,8 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.imine.radio.model.Track;
 import nl.imine.radio.service.TrackFileService;
 import nl.imine.radio.service.TrackService;
+import nl.imine.radio.validator.NBSFileValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -34,6 +36,9 @@ public class RadioController {
 
     @Autowired
     private TrackFileService trackFileService;
+
+    @Autowired
+    private NBSFileValidator nbsFileValidator;
 
     @GetMapping
     public List<Track> getAll() {
@@ -66,13 +71,23 @@ public class RadioController {
     }
 
     @PostMapping
-    public long addTrack(@RequestParam(required = true) String name,
-                         @RequestParam(required = true) String artist) {
-        Track track = new Track();
-        track.setName(name);
-        track.setArtist(artist);
-        trackService.save(track);
-        return track.getId();
+    public long addTrack(HttpServletResponse response,
+                         @RequestParam(required = true) String name,
+                         @RequestParam(required = true) String artist,
+                         @RequestParam MultipartFile file) throws IOException {
+
+        if(nbsFileValidator.validate(file.getInputStream())){
+            Track track = new Track();
+            track.setName(name);
+            track.setArtist(artist);
+            trackService.save(track);
+
+            trackFileService.save(track.getId(), file.getInputStream());
+            return track.getId();
+        } else {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The file was not a valid NBS File");
+            return -1;
+        }
     }
 
     @PutMapping("/{id}")

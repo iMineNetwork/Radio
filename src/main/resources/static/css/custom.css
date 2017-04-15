@@ -12,7 +12,7 @@ form input {
     width: 70%;
 }
 
-div {
+.trackList div {
     flex: 33%;
 }
 
@@ -36,18 +36,6 @@ div {
     padding-top: 1em;
 }
 
-.trackListUploadSection {
-    display: flex;
-    flex: auto;
-    flex-direction: row;
-
-    border-color: rgba(0, 0, 0, 0.79);
-    border-bottom: 2px solid;
-
-    padding-bottom: 1em;
-    padding-top: 1em;
-}
-
 .trackListContainer {
     display: inherit;
 
@@ -55,11 +43,52 @@ div {
     margin-right: 1em;
 }
 
-.trackListUploadContainer input {
+/*Upload Section*/
+.trackListUploadSection {
+    display: flex;
+    flex-direction: column;
+
+    border-color: rgba(0, 0, 0, 0.79);
+    border-bottom: 2px solid;
+
+    padding-bottom: 1em;
+    padding-top: 1em;
+
     margin-left: 0.5em;
     margin-right: 0.5em;
 }
 
+.trackListUploadErrorContainer {
+
+    padding-top: 1em;
+
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.trackListUploadContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.trackListUploadContainer input {
+
+}
+
+.trackListUploadButtonContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.trackListUploadButtonFile {
+    flex: 80% !important;
+}
+
+.trackListUploadButtonSubmit {
+    flex: 20% !important;
+}
+
+/*Track List Content*/
 .trackListContent {
     border-color: rgba(0, 0, 0, 0.79);
 

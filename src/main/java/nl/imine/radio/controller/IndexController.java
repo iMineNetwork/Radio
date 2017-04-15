@@ -3,6 +3,7 @@ package nl.imine.radio.controller;
 import nl.imine.radio.model.Track;
 import nl.imine.radio.service.TrackFileService;
 import nl.imine.radio.service.TrackService;
+import nl.imine.radio.validator.NBSFileValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
@@ -24,6 +26,9 @@ public class IndexController {
     @Autowired
     private TrackFileService trackFileService;
 
+    @Autowired
+    private NBSFileValidator nbsFileValidator;
+
     @GetMapping
     public ModelAndView get() {
         ModelAndView modelAndView = new ModelAndView("index");
@@ -32,15 +37,26 @@ public class IndexController {
     }
 
     @PostMapping
-    public ModelAndView post(@RequestParam String name,
+    public ModelAndView post(HttpServletResponse response,
+                             @RequestParam String name,
                              @RequestParam String artist,
                              @RequestParam MultipartFile file) throws IOException {
-        Track track = new Track();
-        track.setName(name);
-        track.setArtist(artist);
-        trackService.save(track);
+        if(nbsFileValidator.validate(file.getInputStream())){
+            Track track = new Track();
+            track.setName(name);
+            track.setArtist(artist);
+            trackService.save(track);
 
-        trackFileService.save(track.getId(), file.getInputStream());
-        return get();
+            trackFileService.save(track.getId(), file.getInputStream());
+
+            ModelAndView modelAndView = get();
+            modelAndView.addObject("uploadStatus", String.format("Succesfully uploaded \"%s\" by \"%s\"", name, artist));
+            return modelAndView;
+        } else {
+            ModelAndView modelAndView = get();
+            modelAndView.addObject("uploadStatus", String.format("NBS Validation failed. Please verify the file type", name, artist));
+            System.out.println("aaa");
+            return modelAndView;
+        }
     }
 }

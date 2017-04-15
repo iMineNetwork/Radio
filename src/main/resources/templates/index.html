@@ -25,17 +25,25 @@
             </div>
         </div>
     </div>
-    <form method="POST" class="trackListUploadSection">
+    <form method="POST" class="trackListUploadSection" enctype="multipart/form-data">
         <div class="trackListContainer">
-            <div>
-                <input name="name"/>
-            </div>
             <div>
                 <input name="artist"/>
             </div>
             <div>
-                <button formaction="/radio">Upload</button>
+                <input name="name"/>
             </div>
+            <div class="trackListUploadButtonContainer">
+                <div class="trackListUploadButtonFile">
+                    <input name="file" type="file" />
+                </div>
+                <div class="trackListUploadButtonSubmit">
+                    <button formaction="/">Upload</button>
+                </div>
+            </div>
+        </div>
+        <div th:if="${uploadStatus}" class="trackListUploadErrorContainer">
+            <a th:text="${uploadStatus}"/>
         </div>
     </form>
     <div class="trackListContent">
@@ -52,5 +60,26 @@
         </div>
     </div>
 </div>
+<!--<table>-->
+    <!--<tr style="border-top: solid;" th:each="var : ${#vars.getVariableNames()}">-->
+        <!--<td th:text="${var}"></td>-->
+        <!--<td th:text="${#vars.getVariable(var)}"></td>-->
+    <!--</tr>-->
+    <!--&lt;!&ndash; Adding these manually because they're considered special.-->
+         <!--see https://github.com/thymeleaf/thymeleaf/blob/thymeleaf-3.0.3.RELEASE/src/main/java/org/thymeleaf/context/WebEngineContext.java#L199-->
+    <!--&ndash;&gt;-->
+    <!--<tr style="border-top: solid;">-->
+        <!--<td>param</td>-->
+        <!--<td th:text="${#vars.getVariable('param')}"></td>-->
+    <!--</tr>-->
+    <!--<tr style="border-top: solid;">-->
+        <!--<td>session</td>-->
+        <!--<td th:text="${#vars.getVariable('session')}"></td>-->
+    <!--</tr>-->
+    <!--<tr style="border-top: solid;">-->
+        <!--<td>application</td>-->
+        <!--<td th:text="${#vars.getVariable('application')}"></td>-->
+    <!--</tr>-->
+<!--</table>-->
 </body>
 </html>

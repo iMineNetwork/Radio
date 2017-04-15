@@ -39,5 +39,8 @@ fabric.properties
 .DS_Store
 /target/
 
+# Project specific files
+tracks/*
+
 #Don't ignore source files
 !src/*
