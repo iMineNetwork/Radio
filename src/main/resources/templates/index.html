@@ -58,7 +58,7 @@
             <div class="trackActions">
                 <i class="fa fa-lg fa-trash"></i>
                 <i class="fa fa-lg fa-edit"></i>
-                <i class="fa fa-lg fa-download"></i>
+                <a th:href="@{/radio/{id}/download(id=${track.id})}"><i class="fa fa-lg fa-download"></i></a>
             </div>
         </div>
     </div>
