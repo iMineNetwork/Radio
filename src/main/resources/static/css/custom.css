@@ -96,7 +96,7 @@ form input {
     margin-right: 1em;
 }
 
-.trackListContent div {
+.trackListContent .track {
     display: flex;
     flex-direction: row;
 }
@@ -111,4 +111,14 @@ form input {
 
 .trackArtist {
     padding-left: 0.5em;
+}
+
+.trackActions {
+    display: inherit;
+    flex-direction: row-reverse;
+    padding-right: 1em;
+}
+
+.trackActions .fa {
+    margin-left: 1em;
 }
