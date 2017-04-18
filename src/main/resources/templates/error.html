@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
+<head th:include="fragments/headTemplateBase :: head">
     <title>Uh oh...</title>
 </head>
 <body>
-An Error occured...
-<br/>
-Details:
-<table>
-    <tr style="border-top: solid;" th:each="var : ${#vars.getVariableNames()}">
-        <td th:text="${var}"></td>
-        <td th:text="${#vars.getVariable(var)}"></td>
-    </tr>
-    <!-- Adding these manually because they're considered special.
-    see https://github.com/thymeleaf/thymeleaf/blob/thymeleaf-3.0.3.RELEASE/src/main/java/org/thymeleaf/context/WebEngineContext.java#L199
-    -->
-    <tr style="border-top: solid;">
-        <td>param</td>
-        <td th:text="${#vars.getVariable('param')}"></td>
-    </tr>
-    <tr style="border-top: solid;">
-        <td>session</td>
-        <td th:text="${#vars.getVariable('session')}"></td>
-    </tr>
-    <tr style="border-top: solid;">
-        <td>application</td>
-        <td th:text="${#vars.getVariable('application')}"></td>
-    </tr>
-</table>
+<div>
+    <h1 style="text-align: center;">An Error occurred...</h1>
+    <h2>Details:</h2>
+    <table>
+        <tr style="border-top: solid;" th:each="var : ${#vars.getVariableNames()}">
+            <td th:text="${var}"></td>
+            <td th:text="${#vars.getVariable(var)}"></td>
+        </tr>
+        <!-- Adding these manually because they're considered special.
+        see https://github.com/thymeleaf/thymeleaf/blob/thymeleaf-3.0.3.RELEASE/src/main/java/org/thymeleaf/context/WebEngineContext.java#L199
+        -->
+        <tr style="border-top: solid;">
+            <td>param</td>
+            <td th:text="${#vars.getVariable('param')}"></td>
+        </tr>
+        <tr style="border-top: solid;">
+            <td>session</td>
+            <td th:text="${#vars.getVariable('session')}"></td>
+        </tr>
+        <tr style="border-top: solid;">
+            <td>application</td>
+            <td th:text="${#vars.getVariable('application')}"></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

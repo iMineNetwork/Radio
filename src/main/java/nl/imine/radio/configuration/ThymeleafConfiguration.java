@@ -2,6 +2,7 @@ package nl.imine.radio.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.ViewResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -13,7 +14,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 public class ThymeleafConfiguration {
 
     @Bean
-    public ITemplateResolver templateResolver(){
+    public ITemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setPrefix("classpath:templates/");
         templateResolver.setSuffix(".html");
@@ -22,14 +23,14 @@ public class ThymeleafConfiguration {
     }
 
     @Bean
-    public TemplateEngine templateEngine(){
+    public TemplateEngine templateEngine() {
         TemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         return templateEngine;
     }
 
     @Bean
-    public ViewResolver viewResolver(){
+    public ViewResolver viewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setOrder(1);
