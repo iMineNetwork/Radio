@@ -31,7 +31,7 @@ public class EditController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/{id}")
     public ModelAndView post(@PathVariable long id, Track track){
         trackService.save(track);
         return indexController.get();
