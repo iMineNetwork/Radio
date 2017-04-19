@@ -40,11 +40,6 @@
             <artifactId>thymeleaf-spring4</artifactId>
             <version>3.0.5.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-tiles2-spring4</artifactId>
-            <version>3.0.5.RELEASE</version>
-        </dependency>
 
         <!--Mysql-->
         <dependency>
