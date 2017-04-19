@@ -25,7 +25,7 @@ form input {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.trackListHeaderSection {
+.contentHeader {
     display: flex;
     flex: auto;
     flex-direction: row;
@@ -33,6 +33,7 @@ form input {
     border-color: rgba(0, 0, 0, 0.79);
     border-bottom: 3px solid;
 
+    padding-left: 1em;
     padding-top: 1em;
 }
 
@@ -41,6 +42,8 @@ form input {
 
     margin-left: 1em;
     margin-right: 1em;
+
+    padding-bottom: 1em;
 }
 
 /*Upload Section*/
@@ -121,4 +124,9 @@ form input {
 
 .trackActions .fa {
     margin-left: 1em;
+}
+
+/*Edit page specific*/
+.editAction {
+    padding-top: 1em;
 }

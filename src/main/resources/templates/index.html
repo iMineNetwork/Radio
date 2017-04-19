@@ -6,7 +6,7 @@
 <body>
 
 <div class="contentRoot">
-    <div class="trackListHeaderSection">
+    <div class="contentHeader">
         <div class="trackListContainer">
             <div>
                 <b>Artist</b>
@@ -14,9 +14,7 @@
             <div>
                 <b>Name</b>
             </div>
-            <div>
-                <b>Actions</b>
-            </div>
+            <div></div>
         </div>
     </div>
     <form method="POST" class="trackListUploadSection" enctype="multipart/form-data">
@@ -50,7 +48,7 @@
             </div>
             <div class="trackActions">
                 <i class="fa fa-lg fa-trash"></i>
-                <i class="fa fa-lg fa-edit"></i>
+                <a th:href="@{/edit/{id}(id=${track.id})}"><i class="fa fa-lg fa-edit"></i></a>
                 <a th:href="@{/radio/{id}/download(id=${track.id})}"><i class="fa fa-lg fa-download"></i></a>
             </div>
         </div>

@@ -5,16 +5,19 @@
 </head>
 <body>
 <div class="contentRoot">
-    <form action="#" th:action="@{/edit/{id}(id=${track.id})}" th:object="${track}" method="post">
-        <div>
-            <h2>Title</h2>
+    <div class="contentHeader">
+        <h1>Edit details of "<a th:text="${track.name}"/>"</h1>
+    </div>
+    <form class="trackListContainer" action="#" th:action="@{/edit/{id}(id=${track.id})}" th:object="${track}" method="post">
+        <div class="editAction">
+            <h3>Title</h3>
             <input name="name" th:field="*{name}"/>
         </div>
-        <div>
-            <h2>Artist</h2>
+        <div class="editAction">
+            <h3>Artist</h3>
             <input name="name" th:field="*{artist}"/>
         </div>
-        <div>
+        <div class="editAction">
             <button type="submit" name="updateData">Update</button>
         </div>
     </form>
