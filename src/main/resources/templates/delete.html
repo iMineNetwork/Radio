@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="fragments/headTemplateBase :: head">
+    <title>Title</title>
+</head>
+<body>
+<div class="contentRoot">
+    <div class="contentHeader">
+        <h1>Do you really want to remove "<a th:text="${track.name}"/>"?</h1>
+    </div>
+    <form class="trackListContainer" action="#" th:action="@{/delete/{id}(id=${track.id})}" th:object="${track}" method="post">
+        <div class="deleteAction">
+            <h3>To confirm type "Delete" in the field below</h3>
+            <input name="confirmation"/>
+        </div>
+        <div class="deleteAction delete">
+            <button type="submit" name="delete">Delete</button>
+            <button href="/">Cancel</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -47,7 +47,7 @@
                 <a th:text="${track.name}"/>
             </div>
             <div class="trackActions">
-                <i class="fa fa-lg fa-trash"></i>
+                <a th:href="@{/delete/{id}(id=${track.id})}"><i class="fa fa-lg fa-trash"></i></a>
                 <a th:href="@{/edit/{id}(id=${track.id})}"><i class="fa fa-lg fa-edit"></i></a>
                 <a th:href="@{/radio/{id}/download(id=${track.id})}"><i class="fa fa-lg fa-download"></i></a>
             </div>

@@ -130,3 +130,13 @@ form input {
 .editAction {
     padding-top: 1em;
 }
+
+/*Delete page specific*/
+.deleteAction {
+    padding-top: 1em;
+}
+
+.deleteAction .delete {
+    display: inherit;
+    flex-direction: row;
+}
