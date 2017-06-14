@@ -1,5 +1,7 @@
 package nl.imine.radio.controller;
 
+import java.util.UUID;
+
 import nl.imine.radio.model.Track;
 import nl.imine.radio.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,10 @@ public class DeleteController {
     private IndexController indexController;
 
     @GetMapping("/{id}")
-    public ModelAndView get(@PathVariable long id){
-        if(trackService.exists(id)){
+    public ModelAndView get(@PathVariable String id){
+        if(trackService.exists(UUID.fromString(id))){
             ModelAndView modelAndView = new ModelAndView("delete");
-            modelAndView.addObject("track", trackService.findOne(id));
+            modelAndView.addObject("track", trackService.findOne(UUID.fromString(id)));
             return modelAndView;
         } else {
             return indexController.get();
@@ -32,9 +34,9 @@ public class DeleteController {
     }
 
     @PostMapping("/{id}")
-    public ModelAndView post(@PathVariable long id, String confirmation){
+    public ModelAndView post(@PathVariable String id, String confirmation){
         if("Delete".equals(confirmation)){
-            trackService.delete(id);
+            trackService.delete(UUID.fromString(id));
         }
         return indexController.get();
     }

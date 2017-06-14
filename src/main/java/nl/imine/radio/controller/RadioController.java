@@ -7,7 +7,10 @@ import nl.imine.radio.model.Track;
 import nl.imine.radio.service.TrackFileService;
 import nl.imine.radio.service.TrackService;
 import nl.imine.radio.validator.NBSFileValidator;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +29,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/radio")
@@ -47,31 +51,26 @@ public class RadioController {
 
     @GetMapping("/{id}")
     public Track getTrack(HttpServletResponse response,
-                          @PathVariable Long id) throws IOException {
-        Track one = trackService.findOne(id);
+                          @PathVariable String id) throws IOException {
+        Track one = trackService.findOne(UUID.fromString(id));
         return one;
     }
 
     @GetMapping("/{id}/download")
     public void downloadTrackFile(HttpServletResponse response,
-                                  @PathVariable Long id) throws IOException {
-        if(trackFileService.exists(id)) {
+                                                @PathVariable String id) throws IOException {
+        if(trackFileService.exists(UUID.fromString(id))) {
             response.setContentType("application/octet-stream");
-            response.setContentLengthLong(trackFileService.findSize(id));
+            response.setContentLengthLong(trackFileService.findSize(UUID.fromString(id)));
             response.setHeader("Content-Disposition", "attachment; filename=track_" + id + ".nbs");
-            try (OutputStream outputStream = response.getOutputStream()) {
-                InputStream inputStream = trackFileService.findOne(id);
-                for(int data = inputStream.read(); data > 0; data = inputStream.read()){
-                    outputStream.write(data);
-                }
-            }
+            IOUtils.copy(trackFileService.findOne(UUID.fromString(id)), response.getOutputStream());
         } else {
             response.sendError(404, "The requested track could not be found");
         }
     }
 
     @PostMapping
-    public long addTrack(HttpServletResponse response,
+    public UUID addTrack(HttpServletResponse response,
                          @RequestParam(required = true) String name,
                          @RequestParam(required = true) String artist,
                          @RequestParam MultipartFile file) throws IOException {
@@ -86,17 +85,17 @@ public class RadioController {
             return track.getId();
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "The file was not a valid NBS File");
-            return -1;
+            return null;
         }
     }
 
     @PutMapping("/{id}")
     public Track updateTrack(HttpServletResponse response,
-                             @PathVariable long id,
+                             @PathVariable String id,
                              @RequestParam(required = false) String name,
                              @RequestParam(required = false) String artist) throws IOException {
 
-        Track track = trackService.findOne(id);
+        Track track = trackService.findOne(UUID.fromString(id));
         if (track != null) {
             if (name != null) {
                 track.setName(name);
@@ -114,9 +113,9 @@ public class RadioController {
 
     @DeleteMapping("/{id}")
     public void deleteTrack(HttpServletResponse response,
-                            @PathVariable long id) throws IOException {
-        if(trackService.exists(id)){
-            trackService.delete(id);
+                            @PathVariable String id) throws IOException {
+        if(trackService.exists(UUID.fromString(id))){
+            trackService.delete(UUID.fromString(id));
             response.sendError(200, "Deleting: " + id);
         } else {
             response.sendError(404, "The requested track could not be found");

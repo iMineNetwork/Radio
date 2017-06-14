@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public interface TrackService extends CrudRepository<Track, Long> {
+public interface TrackService extends CrudRepository<Track, UUID> {
 
     List<Track> findAll();
 

@@ -1,5 +1,7 @@
 package nl.imine.radio.controller;
 
+import java.util.UUID;
+
 import nl.imine.radio.model.Track;
 import nl.imine.radio.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,10 @@ public class EditController {
     private IndexController indexController;
 
     @GetMapping("/{id}")
-    public ModelAndView get(@PathVariable long id){
-        if(trackService.exists(id)){
+    public ModelAndView get(@PathVariable String id){
+        if(trackService.exists(UUID.fromString(id))){
             ModelAndView modelAndView = new ModelAndView("edit");
-            modelAndView.addObject("track", trackService.findOne(id));
+            modelAndView.addObject("track", trackService.findOne(UUID.fromString(id)));
             return modelAndView;
         } else {
             return indexController.get();
@@ -32,7 +34,7 @@ public class EditController {
     }
 
     @PostMapping("/{id}")
-    public ModelAndView post(@PathVariable long id, Track track){
+    public ModelAndView post(@PathVariable UUID id, Track track){
         trackService.save(track);
         return indexController.get();
     }

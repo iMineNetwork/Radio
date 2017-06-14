@@ -4,15 +4,16 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 @Service
 public interface TrackFileService {
 
-    InputStream findOne(long id) throws IOException;
+    InputStream findOne(UUID id) throws IOException;
 
-    void save(long id, InputStream inputStream);
+    void save(UUID id, InputStream inputStream);
 
-    boolean exists(long id);
+    boolean exists(UUID id);
 
-    long findSize(long id);
+    long findSize(UUID id);
 }

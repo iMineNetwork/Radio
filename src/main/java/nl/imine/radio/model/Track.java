@@ -1,34 +1,41 @@
 package nl.imine.radio.model;
 
+import java.util.UUID;
+
 import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 @Entity
 public class Track {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Type(type="uuid-char")
+    private UUID id;
     private String name;
     private String artist;
 
     public Track() {
     }
 
-    public Track(long id, String name, String artist) {
+    public Track(UUID id, String name, String artist) {
         this.id = id;
         this.name = name;
         this.artist = artist;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
