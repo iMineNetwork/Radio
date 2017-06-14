@@ -1,19 +1,25 @@
 package nl.imine.radio.configuration;
 
-import java.util.Arrays;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.ldap.core.ContextSource;
+import org.springframework.ldap.core.support.BaseLdapPathContextSource;
 import org.springframework.security.authentication.encoding.LdapShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
 
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    private Logger logger = LoggerFactory.getLogger(WebSecurityConfigurerAdapter.class);
+
+    @Autowired
+    private ContextSource contextSource;
 
     @Value("${ldap.url}")
     private String ldapUrl;
@@ -25,6 +31,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String ldapUserDnPattern;
     @Value("${ldap.passwordAttribute}")
     private String ldapPasswordAttribute;
+
+    @Value("${ldap.managerUser}")
+    private String ldapManagerUser;
+    @Value("${ldap.managerPassword}")
+    private String ldapManagerPassword;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,18 +60,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .ldapAuthentication()
-                .userDnPatterns(ldapUserDnPattern)
-                .groupSearchBase(ldapGroupSearchBase)
-                .contextSource(contextSource())
-                .passwordCompare()
-                .passwordEncoder(new LdapShaPasswordEncoder())
-                .passwordAttribute(ldapPasswordAttribute);
+                .ldapAuthentication().contextSource((BaseLdapPathContextSource) contextSource)
+                    .userDnPatterns(ldapUserDnPattern)
+                    .groupSearchBase(ldapGroupSearchBase)
+                    .passwordCompare()
+                        .passwordEncoder(new LdapShaPasswordEncoder())
+                        .passwordAttribute(ldapPasswordAttribute);
     }
-
-    @Bean
-    protected DefaultSpringSecurityContextSource contextSource() {
-        return new DefaultSpringSecurityContextSource(Arrays.asList(ldapUrl), ldapBaseDn);
-    }
-
 }
