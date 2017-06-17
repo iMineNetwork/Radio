@@ -63,7 +63,11 @@ public class RadioController {
             response.setContentType("application/octet-stream");
             response.setContentLengthLong(trackFileService.findSize(UUID.fromString(id)));
             response.setHeader("Content-Disposition", "attachment; filename=track_" + id + ".nbs");
-            IOUtils.copy(trackFileService.findOne(UUID.fromString(id)), response.getOutputStream());
+
+            InputStream inputStream = trackFileService.findOne(UUID.fromString(id));
+            IOUtils.copy(inputStream, response.getOutputStream());
+            inputStream.close();
+
         } else {
             response.sendError(404, "The requested track could not be found");
         }
