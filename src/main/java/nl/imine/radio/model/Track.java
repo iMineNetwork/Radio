@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 @Entity
-public class Track {
+public class Track implements Comparable<Track> {
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -53,5 +53,14 @@ public class Track {
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+
+    @Override
+    public int compareTo(Track other) {
+        int artistCompare = this.getArtist().compareToIgnoreCase(other.getArtist());
+        if(artistCompare == 0) {
+            return this.getName().compareToIgnoreCase(other.getName());
+        }
+        return artistCompare;
     }
 }

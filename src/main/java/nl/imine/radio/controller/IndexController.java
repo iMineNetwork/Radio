@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -32,7 +35,9 @@ public class IndexController {
     @GetMapping
     public ModelAndView get() {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("tracks", trackService.findAll());
+        List<Track> tracks = trackService.findAll();
+        Collections.sort(tracks);
+        modelAndView.addObject("tracks", tracks);
         return modelAndView;
     }
 
