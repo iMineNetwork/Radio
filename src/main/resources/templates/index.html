@@ -9,10 +9,10 @@
     <div class="contentHeader">
         <div class="trackListContainer">
             <div>
-                <b>Name</b>
+                <b>Artist</b>
             </div>
             <div>
-                <b>Artist</b>
+                <b>Name</b>
             </div>
             <div></div>
         </div>
@@ -40,11 +40,11 @@
     </form>
     <div class="trackListContent">
         <div class="track" th:each="track : ${tracks}">
-            <div class="trackName">
-                <a th:text="${track.name}"/>
-            </div>
             <div class="trackArtist">
                 <a th:text="${track.artist}"/>
+            </div>
+            <div class="trackName">
+                <a th:text="${track.name}"/>
             </div>
             <div class="trackActions">
                 <a th:href="@{/delete/{id}(id=${track.id})}"><i class="fa fa-lg fa-trash"></i></a>
